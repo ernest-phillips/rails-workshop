@@ -1,19 +1,10 @@
 require "application_system_test_case"
 
 class MoviesSystemTest < ApplicationSystemTestCase
-  # class Movie
-  #   attr_reader :movie_path
-  #   def initialize(movie_path)
-  #     @movie_path = movie_path
-  #   end
-
-  #   def movie_path(path)
-  #     get 
-  #   end
-  # end
+  
   test "visiting the show" do
-
-    # movie = Movie.new(title: 'Parasite', director: 'Bong Joon-ho')
+    attributes = { title: "Parasite", director: "Bong Joon-ho"}
+    Movie.new(attributes)
     # sign_in_as users(:user)
     visit movie_path(1)   
 
