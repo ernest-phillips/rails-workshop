@@ -48,6 +48,14 @@ class MovieTest < ActiveSupport::TestCase
 
     assert_equal "2022", year
   end
+
+  test "counts movies with more facebook likes" do 
+    movie1 = Movie.create!(title: "Movie 1", facebook_likes: 100 )
+    movie2 = Movie.create!(title: "Movie 2", facebook_likes: 2)
+
+    count = Movie.count_with_facebook_likes(10)
+    assert_equal movie1, count.first
+  end
 end
 
 # Make a method that returns an array of just movie titles.
