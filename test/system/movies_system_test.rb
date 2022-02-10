@@ -1,16 +1,26 @@
 require "application_system_test_case"
-require 'test_helper'
 
 class MoviesSystemTest < ApplicationSystemTestCase
-  
   test "visiting the show" do
-    attributes = { title: "Parasite", director: "Bong Joon-ho"}
-    Movie.new(attributes)
-    visit movie_path(1)   
+    # As a user,
+    # when I visit /movies/1
+    # I see the title of the movie "Parasite"
+    # I also see the name of the director "Bong Joon-ho"
+    movie = Movie.create!(title: "Parasite", director: "Bong Joon-hoo")
 
-    assert_text 'Parasite'
-    assert_text 'Bong Joon-ho'
-    
+    visit movie_path(movie.id)
+    assert_text "Parasite"
+    assert_text "Bong Joon-ho"
+  end
+
+  test "visiting the show for a different movie" do
+    # As a user,
+    # When I visit a movie with the id of 2,
+    # I see the title for that movie
+    movie = Movie.create!(title: "Other Movie")
+
+    visit movie_path(movie.id)
+    assert_text "Other Movie"
   end
 
   test "visiting the index page" do
@@ -25,13 +35,28 @@ class MoviesSystemTest < ApplicationSystemTestCase
     assert_text "James Cameron"
   end
 
-  test "adding a new movie" do
+  test "new button on index page" do
     visit movies_path
 
     assert_button "Add New Movie"
-    click_on "Add New Movie"
-    assert_current_path "movies/new"
 
-    assert_selector("form")
+    click_on "Add New Movie"
+
+    assert_current_path new_movie_path
+
+    assert_selector ".form"
+  end
+
+  test "creating a new movie" do
+    visit new_movie_path
+
+    fill_in "Title", with: "A New Movie"
+
+    click_on "Create"
+
+    assert_text "A New Movie"
+
+    movie = Movie.order(id: :desc).first
+    assert_equal "A New Movie", movie.title
   end
 end

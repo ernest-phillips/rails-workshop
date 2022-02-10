@@ -1,18 +1,35 @@
 class MoviesController < ApplicationController
-  def show
-    render locals: {movie: Movie.find(params[:id])}
+  def index
+    movies = Movie.all
+
+    render locals: { movies: movies }
   end
 
-  def index
-    @movies = Movie.all 
+  def show
+    movie = Movie.find(params[:id])
+
+    render locals: { movie: movie }
   end
 
   def new
+    movie = Movie.new
 
+    render locals: { movie: movie }
   end
 
-  def create 
-    # create a new movie with the information from the form
-    # redirect to the show page for the new movie
+  def create
+    movie = Movie.new(movie_params)
+
+    if movie.save
+      redirect_to movie
+    else
+      render "new", locals: { movie: movie }
+    end
+  end
+
+  private
+
+  def movie_params
+    params.require(:movie).permit(:title, :director, :year)
   end
 end

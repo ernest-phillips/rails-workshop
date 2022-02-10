@@ -1,8 +1,10 @@
+<h1>All Movies</h1>
 
+<dl>
+  <% movies.each do |movie| %>
+    <dt><%= movie.title %></dt>
+    <dd>directed by <%= movie.director %></dd>
+  <% end %>
+</dl>
 
-<% @movies.each do |movie| %>
-  <h2><%= movie.title %></h2>
-  <h3><%= movie.director %></h3>
-<% end %>
-<%= button  %>
-
+<%= button_to "Add New Movie", new_movie_path, method: :get %>
