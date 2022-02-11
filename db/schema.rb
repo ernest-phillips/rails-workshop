@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_08_184524) do
+ActiveRecord::Schema.define(version: 2022_02_11_011806) do
+
+  create_table "directors", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+  end
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
@@ -18,6 +23,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_184524) do
     t.string "year"
     t.string "plot_keywords"
     t.string "director"
+    t.integer "color_format"
   end
 
 end
