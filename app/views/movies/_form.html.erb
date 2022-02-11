@@ -1,0 +1,12 @@
+<%= form_for movie, html: { class: "form" } do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br>
+  <%= f.label :director %>
+  <%= f.text_field :director %>
+  <br>
+  <%= f.label :year %>
+  <%= f.text_field :year %>
+  <br>
+  <%= f.submit submit_label %>
+<% end %>

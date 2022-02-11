@@ -27,6 +27,22 @@ class MoviesController < ApplicationController
     end
   end
 
+  def edit
+    movie = Movie.find(params[:id])
+
+    render locals: { movie: movie }
+  end
+
+  def update
+    movie = Movie.find(params[:id])
+
+    if movie.update(movie_params)
+      redirect_to movie
+    else
+      render "edit", locals: { movie: movie }
+    end
+  end
+
   private
 
   def movie_params

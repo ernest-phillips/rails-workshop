@@ -2,21 +2,21 @@ require 'test_helper'
 
 class MovieTest < ActiveSupport::TestCase
   test "movie is valid with a title" do
-    movie = Movie.new(title: "Parasite", director: "Bong Joon-ho")
+    movie = build(:movie, title: "Parasite", director: "Bong Joon-ho")
     assert_equal movie.title, "Parasite"
     assert_equal movie.director, "Bong Joon-ho"
   end
 
   test "movie is not valid without a title" do
-    movie = Movie.new(title: " ")
+    movie = build(:movie, title: " ")
     refute movie.valid?
   end
 
   # Make a method that returns an array of just movie titles.
   #
   test "lists movie titles" do
-    Movie.create!(title: "Movie 1")
-    Movie.create!(title: "Movie 2")
+    create(:movie, title: "Movie 1")
+    create(:movie, title: "Movie 2")
 
     titles = Movie.titles
 
@@ -25,8 +25,8 @@ class MovieTest < ActiveSupport::TestCase
 
   # Make a method that returns all movies in order of most to least Facebook likes.
   test "lists movies in order of facebook likes" do
-    movie1 = Movie.create!(title: "Movie 1", facebook_likes: 100)
-    movie2 = Movie.create!(title: "Movie 2", facebook_likes: 2)
+    movie1 = create(:movie, title: "Movie 1", facebook_likes: 100)
+    movie2 = create(:movie, title: "Movie 2", facebook_likes: 2)
 
     movies = Movie.sorted_by_facebook_likes
 
@@ -35,8 +35,8 @@ class MovieTest < ActiveSupport::TestCase
 
   # Make a method that can find a movie by its title, and tell you what year it was released.
   test "find a movies by title and return the year" do
-    Movie.create!(title: "Movie 1", year: "2022")
-    Movie.create!(title: "Movie 2", year: "1982")
+    create(:movie, title: "Movie 1", year: "2022")
+    create(:movie, title: "Movie 2", year: "1982")
 
     year = Movie.release_year_by_title("Movie 1")
 
@@ -45,8 +45,8 @@ class MovieTest < ActiveSupport::TestCase
 
   # Make a method that returns the number of movies in the database with more than a given number of Facebook likes
   test "counts movies with more facebook likes" do
-    Movie.create!(title: "Movie 1", facebook_likes: 100)
-    Movie.create!(title: "Movie 2", facebook_likes: 2)
+    create(:movie, title: "Movie 1", facebook_likes: 100)
+    create(:movie, title: "Movie 2", facebook_likes: 2)
 
     count = Movie.count_with_facebook_likes(10)
 
